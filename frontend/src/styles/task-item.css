@@ -1,0 +1,128 @@
+.taskItem {
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 12px;
+  background: #fff;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.taskItem:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  border-color: #d3d3d3;
+}
+
+.taskItem__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.taskItem__title {
+  margin: 0;
+}
+
+.taskItem__badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  height: fit-content;
+  white-space: nowrap;
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+}
+
+.taskItem:hover .taskItem__badge {
+  transform: translateY(-1px);
+  filter: saturate(1.05);
+}
+
+.taskItem__badge--high {
+  background: #ffd6d6;
+  border: 1px solid #ff8a8a;
+}
+
+.taskItem__badge--medium {
+  background: #fff3cd;
+  border: 1px solid #ffcf66;
+}
+
+.taskItem__badge--low {
+  background: #d4edda;
+  border: 1px solid #7bd389;
+}
+
+.taskItem__description {
+  margin-top: 8px;
+}
+
+.taskItem__actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.taskItem__actions--edit {
+  margin-top: 0;
+}
+
+.taskItem__button {
+  border: 1px solid #d6d6d6;
+  background: #fff;
+  color: #1f1f1f;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 120ms ease,
+    box-shadow 180ms ease;
+}
+
+.taskItem__button:hover {
+  background: #f7f7f7;
+  border-color: #c8c8c8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.taskItem__button:active {
+  transform: translateY(1px);
+}
+
+.taskItem__button--danger:hover {
+  background: #fff1f1;
+  border-color: #e8b3b3;
+}
+
+.taskItem__button--primary {
+  background: #f4f7ff;
+  border-color: #ccd8ff;
+}
+
+.taskItem__button--primary:hover {
+  background: #eaf0ff;
+  border-color: #b5c7ff;
+}
+
+.taskItem__input,
+.taskItem__textarea,
+.taskItem__select {
+  width: 100%;
+  margin-bottom: 8px;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: inherit;
+  box-sizing: border-box;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.taskItem__textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.taskItem__input:focus,
+.taskItem__textarea:focus,
+.taskItem__select:focus {
+  outline: none;
+  border-color: #9cb2ff;
+  box-shadow: 0 0 0 3px rgba(95, 127, 255, 0.15);
+}

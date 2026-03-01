@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
+import "../styles/task-item.css";
 
 function TaskItem({ task, onToggle, onEdit, onDelete }) {
+  // state variables for edit mode and form fields
   const [edit, setEdit] = useState(false);
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description || "");
   const [priority, setPriority] = useState(task.priority);
 
-  // Keep local edit fields in sync if task changes after reload/filter
+  // update form fields when the task prop changes 
   useEffect(() => {
     setTitle(task.title);
     setDescription(task.description || "");
     setPriority(task.priority);
   }, [task.id, task.title, task.description, task.priority]);
 
-  const badgeStyle =
-    task.priority === "high"
-      ? { background: "#ffd6d6", border: "1px solid #ff8a8a" }
-      : task.priority === "medium"
-      ? { background: "#fff3cd", border: "1px solid #ffcf66" }
-      : { background: "#d4edda", border: "1px solid #7bd389" };
+  const badgeClass = `taskItem__badge taskItem__badge--${task.priority}`;
 
+  // function to save edits to the task, calls onEdit with the updated task data
   function save() {
     if (!title.trim()) return;
 
@@ -34,6 +32,7 @@ function TaskItem({ task, onToggle, onEdit, onDelete }) {
     setEdit(false);
   }
 
+  // function to cancel edits and revert form fields to the original task data  
   function cancel() {
     setTitle(task.title);
     setDescription(task.description || "");
@@ -41,82 +40,76 @@ function TaskItem({ task, onToggle, onEdit, onDelete }) {
     setEdit(false);
   }
 
+  // function to delete the task, calls onDelete with the task data
   function remove() {
     onDelete(task);
-}
+  }
 
+  // render the task item 
   return (
-    <div
-      style={{
-        border: "1px solid #ddd",
-        padding: "16px",
-        borderRadius: "12px",
-        background: "#fff",
-      }}
-    >
+    <div className="taskItem">
       {!edit ? (
         <>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: "10px" }}>
-            <h3 style={{ margin: 0 }}>
+          <div className="taskItem__header">
+            <h3 className="taskItem__title">
               {task.completed ? "✔ " : "✘ "}
               {task.title}
             </h3>
 
-            <span
-              style={{
-                ...badgeStyle,
-                padding: "4px 10px",
-                borderRadius: "999px",
-                fontSize: "12px",
-                height: "fit-content",
-                whiteSpace: "nowrap",
-              }}
-            >
+            <span className={badgeClass}>
               {task.priority}
             </span>
           </div>
 
-          {task.description ? <p style={{ marginTop: "8px" }}>{task.description}</p> : null}
+          {task.description ? <p className="taskItem__description">{task.description}</p> : null}
 
-          <div style={{ marginTop: "12px", display: "flex", gap: "8px" }}>
-            <button onClick={() => onToggle(task)}>
+          <div className="taskItem__actions">
+            <button className="taskItem__button" onClick={() => onToggle(task)}>
               {task.completed ? "Undo" : "Done"}
             </button>
 
-            <button onClick={() => setEdit(true)}>Edit</button>
+            <button className="taskItem__button" onClick={() => setEdit(true)}>
+              Edit
+            </button>
 
-            <button onClick={remove}>Delete</button>
+            <button className="taskItem__button taskItem__button--danger" onClick={remove}>
+              Delete
+            </button>
           </div>
         </>
       ) : (
         <>
           <input
+            className="taskItem__input"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Title"
-            style={{ width: "100%", marginBottom: "8px" }}
           />
 
           <textarea
+            className="taskItem__textarea"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Description"
-            style={{ width: "100%", marginBottom: "8px" }}
           />
 
           <select
+            className="taskItem__select"
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
-            style={{ width: "100%", marginBottom: "8px" }}
           >
             <option value="low">low</option>
             <option value="medium">medium</option>
             <option value="high">high</option>
           </select>
 
-          <div style={{ display: "flex", gap: "8px" }}>
-            <button onClick={save}>Save</button>
-            <button onClick={cancel}>Cancel</button>
+          <div className="taskItem__actions taskItem__actions--edit">
+            <button className="taskItem__button taskItem__button--primary" onClick={save}>
+              Save
+            </button>
+            <button className="taskItem__button" onClick={cancel}>
+              Cancel
+            </button>
           </div>
         </>
       )}

@@ -5,12 +5,20 @@
 
   const VALID_PRIORITIES = ["low", "medium", "high"];
 
+  // helper function to create error objects with status codes
   function makeError(statusCode, message) {
     const err = new Error(message);
     err.statusCode = statusCode;
     return err;
   }
 
+  // routes
+  // GET /api/tasks - get all tasks
+  // POST /api/tasks - create a new task
+  // PUT /api/tasks/:id - update a task by id
+  // DELETE /api/tasks/:id - delete a task by id
+  // PATCH /api/tasks/:id/toggle - toggle completed status of a task by id
+  
   router.get("/", (req, res) => {
     res.json(store.getAll());
   });

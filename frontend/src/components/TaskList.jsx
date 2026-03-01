@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import TaskItem from "./TaskItem";
+import "../styles/task-list.css";
 
 function TaskList({ tasks, onToggle, onEdit, onDelete }) {
   const VISIBLE = 3;
@@ -7,6 +8,7 @@ function TaskList({ tasks, onToggle, onEdit, onDelete }) {
 
   const [index, setIndex] = useState(0);
   const [anim, setAnim] = useState(true);
+  const trackRef = useRef(null);
 
   const loopItems = useMemo(() => {
     if (!canCarousel) return tasks;
@@ -24,7 +26,7 @@ function TaskList({ tasks, onToggle, onEdit, onDelete }) {
       setAnim(false);
       setIndex(VISIBLE);
 
-      // enable animation after paint
+      // allow the DOM to update before enabling animation
       requestAnimationFrame(() => {
         requestAnimationFrame(() => setAnim(true));
       });
@@ -69,34 +71,38 @@ function TaskList({ tasks, onToggle, onEdit, onDelete }) {
     }
   }
 
+  const STEP = 320; 
+  const GAP = 20;
+
+  useEffect(() => {
+    if (!trackRef.current) return;
+
+    trackRef.current.style.gap = `${GAP}px`;
+    trackRef.current.style.transform = `translateX(-${index * STEP}px)`;
+    trackRef.current.style.transition = anim ? "transform 0.35s ease" : "none";
+  }, [index, anim, GAP, STEP]);
+
   if (tasks.length === 0) {
     return <p>No tasks yet.</p>;
   }
 
-  const STEP = 320; // 300 card + 20 gap (match below)
-  const GAP = 20;
-
   return (
-    <div>
-      <h2>Tasks</h2>
+    <div className="taskList">
+      <h2 className="taskList__title">Tasks</h2>
 
-      <div style={{ marginBottom: "10px", display: "flex", gap: "10px" }}>
-        <button onClick={prev} disabled={!canCarousel}>Prev</button>
-        <button onClick={next} disabled={!canCarousel}>Next</button>
+      <div className="taskList__controls">
+        <button className="taskList__button" onClick={prev} disabled={!canCarousel}>Prev</button>
+        <button className="taskList__button" onClick={next} disabled={!canCarousel}>Next</button>
       </div>
 
-      <div style={{ overflow: "hidden" }}>
+      <div className="taskList__viewport">
         <div
-          style={{
-            display: "flex",
-            gap: `${GAP}px`,
-            transform: `translateX(-${index * STEP}px)`,
-            transition: anim ? "transform 0.35s ease" : "none",
-          }}
+          className="taskList__track"
+          ref={trackRef}
           onTransitionEnd={onEnd}
         >
           {loopItems.map((task, i) => (
-            <div key={`${task.id}-${i}`} style={{ minWidth: "300px" }}>
+            <div key={`${task.id}-${i}`} className="taskList__itemWrap">
               <TaskItem
                 task={task}
                 onToggle={onToggle}

@@ -4,6 +4,7 @@ const tasksRouter = require("./routes/tasks");
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
 
+// create express app
 const app = express();
 
 app.use(cors());

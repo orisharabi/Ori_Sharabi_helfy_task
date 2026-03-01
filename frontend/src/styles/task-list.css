@@ -1,0 +1,47 @@
+.taskList__title {
+  margin-bottom: 10px;
+}
+
+.taskList__controls {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.taskList__button {
+  border: 1px solid #d6d6d6;
+  background: #fff;
+  color: #1f1f1f;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 120ms ease,
+    box-shadow 180ms ease;
+}
+
+.taskList__button:hover:not(:disabled) {
+  background: #f7f7f7;
+  border-color: #c8c8c8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.taskList__button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.taskList__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.taskList__viewport {
+  overflow: hidden;
+}
+
+.taskList__track {
+  display: flex;
+}
+
+.taskList__itemWrap {
+  min-width: 300px;
+}
