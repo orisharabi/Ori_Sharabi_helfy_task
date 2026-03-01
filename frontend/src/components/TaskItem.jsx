@@ -42,10 +42,8 @@ function TaskItem({ task, onToggle, onEdit, onDelete }) {
   }
 
   function remove() {
-    const ok = window.confirm("Delete this task?");
-    if (!ok) return;
     onDelete(task);
-  }
+}
 
   return (
     <div
