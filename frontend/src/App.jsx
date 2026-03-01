@@ -16,6 +16,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState("all");
 
   async function loadTasks() {
     try {
@@ -73,6 +74,12 @@ function App() {
     }
   }
 
+  const filteredTasks = tasks.filter((t) => {
+    if (filter === "completed") return t.completed;
+    if (filter === "pending") return !t.completed;
+    return true;
+  });
+
   return (
     <div className="page">
       <h1>Task Manager</h1>
@@ -82,8 +89,31 @@ function App() {
 
       <TaskForm onAdd={handleAdd} />
 
+      <div style={{ display: "flex", gap: "10px", margin: "15px 0" }}>
+        <button
+          onClick={() => setFilter("all")}
+          style={{ fontWeight: filter === "all" ? "bold" : "normal" }}
+        >
+          All
+        </button>
+
+        <button
+          onClick={() => setFilter("completed")}
+          style={{ fontWeight: filter === "completed" ? "bold" : "normal" }}
+        >
+          Completed
+        </button>
+
+        <button
+          onClick={() => setFilter("pending")}
+          style={{ fontWeight: filter === "pending" ? "bold" : "normal" }}
+        >
+          Pending
+        </button>
+      </div>
+
       <TaskList
-        tasks={tasks}
+        tasks={filteredTasks}
         onToggle={handleToggle}
         onEdit={handleEdit}
         onDelete={handleDelete}
