@@ -1,0 +1,128 @@
+/* frontend/src/styles/App.css */
+
+.page {
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.carousel {
+  margin-top: 16px;
+}
+
+.carouselHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.carouselTitle {
+  margin: 0;
+}
+
+.carouselControls {
+  display: flex;
+  gap: 8px;
+}
+
+.carouselViewport {
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 8px;
+  background: #f6f6f8;
+}
+
+.carouselTrack {
+  display: flex;
+  gap: 12px;
+  will-change: transform;
+}
+
+.carouselTrack.anim {
+  transition: transform 450ms ease;
+}
+
+.taskCardWrap {
+  flex: 0 0 320px;
+}
+
+.taskCard {
+  background: white;
+  border-radius: 14px;
+  padding: 14px;
+  min-height: 160px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.taskCard.done {
+  opacity: 0.75;
+}
+
+.taskTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.taskTitle {
+  margin: 0;
+  font-size: 18px;
+}
+
+.taskDesc {
+  margin: 8px 0 0;
+  color: #444;
+}
+
+.taskActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #f0f0f0;
+}
+
+.btn.danger {
+  border-color: #ffb4b4;
+}
+
+.badge {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+}
+
+.badge.low {
+  background: #eef7ff;
+}
+
+.badge.medium {
+  background: #fff8e6;
+}
+
+.badge.high {
+  background: #ffecec;
+}
+
+.emptyState {
+  margin-top: 16px;
+  color: #444;
+}
